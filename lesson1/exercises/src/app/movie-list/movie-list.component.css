@@ -1,0 +1,13 @@
+.movies {
+    color: #0A8CAD;
+    font-size: 2vw;
+}
+
+h3 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 3vw;
+    background-image: linear-gradient(141deg, #75bbd0 0%, #1fc8db 15%, #006a92 75%);
+    color: whitesmoke;
+    border-radius: 7px;
+}
