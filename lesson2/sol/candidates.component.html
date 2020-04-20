@@ -1,0 +1,62 @@
+<div class="container">
+    <h2 class="centered" *ngIf = "!editMissionName; else editMission" (click)="editMissionName = true">Mission Name: {{missionName}}</h2>
+    <br>
+    <div class="row justify-content-center">
+        <div class="candidates col-3">
+            <h2>Candidates</h2>
+            <ol>
+                <!-- Find the "Candidates" section in candidates.component.html. Use *ngFor in the <li> tag to loop over the candidates array and display each name in an ordered list. -->
+                <li *ngFor = "let candidate of candidates" (click)="selectedCand = candidate">{{candidate.name}}</li>
+            </ol>
+        </div>
+    
+        <div class="data col-3">
+            <h2>Candidate Data</h2>
+            <!--Note that *ngIf could also be inside <div> containing <p>-->
+            <p *ngIf = "selectedCand"> <!-- Add an *ngIf to this tag to display the selected candidate's data-->
+                Name: {{selectedCand.name}} <br>
+                Age: {{selectedCand.data.age}} <br>
+                Mass: {{selectedCand.data.mass}} <br>
+                Sidekick: {{selectedCand.data.sidekick}}
+            </p>
+        </div>
+    
+        <div class="centered col-3">
+            <h2>Sidekick</h2>
+            <!-- Use *ngIf and the correct placeholder to display a sidekick's image -->
+            <img *ngIf = "selectedCand" src="{{selectedCand.image}}" alt="Oops! Missing photo!"/>
+            <!-- <img src="{{placeholder}}" alt="OOPS! No image available."/> -->
+        </div>
+
+        <div class="crew col-3">
+            <h2>Selected Crew</h2>
+            <!-- <ul>
+                <li>Use *ngFor to list the selected crew.</li>
+            </ul> -->
+
+            <ul>
+                <li *ngFor = "let member of crew">{{member.name}}</li>
+            </ul>
+
+            <!-- Add a "Clear Crew List" button here. -->
+            <button *ngIf = "crew.length !== 0" (click)="crew=[]">Clear Crew List</button>
+        </div>
+    </div>
+    <hr>
+    <div class = 'centered'>
+        <!-- Next, create a way to clear the data. In the <button> tag for "Clear Data & Image", add a click event that sets selected to false -->
+        <button (click)="selectedCand = false">Clear Data & Image</button>
+        <!-- Add a "Send on Mission" button here. -->
+        <button *ngIf = "selectedCand && !crew.includes(selectedCand) && crew.length < 3" (click)="addToCrew(selectedCand)">Send on Mission</button>
+    </div>
+</div>
+
+<!-- The code below is for one of the Bonus Missions -->
+<ng-template #editMission>
+    <h2 class="centered">
+        Mission Name:
+        <!-- Add a keyup.enter event that calls the changeMissionName function. -->
+        <input #newName (keyup.enter) = "editMissionName = changeMissionName(newName.value)" type="text"/>
+    </h2>
+</ng-template>
+
